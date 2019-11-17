@@ -27,8 +27,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("update_icon.png")));
+        Parent root = FXMLLoader.load(this.getClass().getResource("Main.fxml"));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("update_icon.png")));
         primaryStage.setTitle("Minecraft Mod Syncer");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
