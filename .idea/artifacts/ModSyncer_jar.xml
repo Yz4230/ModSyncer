@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ModSyncer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ModSyncer_jar</output-path>
+    <root id="archive" name="ModSyncer.jar">
+      <element id="module-output" name="ModSyncer" />
+    </root>
+  </artifact>
+</component>
