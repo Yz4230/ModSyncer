@@ -22,8 +22,8 @@ public class Main extends Application {
     public static String SERVER_IP;
     public static IpChecker ipChecker = new IpChecker();
 
-    public static Server serverInst;
-    public static Client clientInst;
+    public static Server serverInst = new Server();
+    public static Client clientInst = new Client();
 
     @Override
     public void start(Stage primaryStage) throws Exception {

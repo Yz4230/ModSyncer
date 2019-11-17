@@ -1,7 +1,6 @@
 package modsyncer.Sides;
 
-import javafx.scene.control.ProgressBar;
-import modsyncer.threads.ClientThread;
+import modsyncer.threads.client.ClientThread;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,16 +11,22 @@ public class Client implements Side {
     private ClientThread thread;
 
     @Override
-    public void sync(ProgressBar progressBar) {
+    public void sync() {
+        this.thread = new ClientThread(this.serverIp, this.port);
+        this.thread.start();
+    }
+
+    @Override
+    public void terminate() {
     }
 
     @Override
     public void parseAddress(String parseTarget) {
-        Pattern pattern = Pattern.compile("((?:\\d{1,3})\\.(?:\\d{1,3})\\.(?:\\d{1,3})\\.(?:\\d{1,3})):(\\d{1,5})");
+        Pattern pattern = Pattern.compile("((?:(?:\\d{1,3})\\.?){4}):(\\d{1,5})");
         Matcher matcher = pattern.matcher(parseTarget);
         if (matcher.find()) {
-            serverIp = matcher.group(1);
-            port = Integer.parseInt(matcher.group(2));
+            this.serverIp = matcher.group(1);
+            this.port = Integer.parseInt(matcher.group(2));
         }
     }
 }
