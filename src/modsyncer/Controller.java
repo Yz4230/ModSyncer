@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import modsyncer.Sides.Client;
+import modsyncer.Sides.Server;
+import modsyncer.threads.IpChecker;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +49,14 @@ public class Controller implements Initializable {
 
     @FXML
     public void onSyncButtonClick(ActionEvent event) {
-
+        if (ip_address_TF.getText().isEmpty()) return;
+        if (server_mode_CBX.isSelected()) {
+            Main.serverInst = new Server();
+            Main.serverInst.parseAddress(ip_address_TF.getText());
+        } else {
+            Main.clientInst = new Client();
+            Main.clientInst.parseAddress(ip_address_TF.getText());
+        }
     }
 
     @FXML
@@ -66,10 +76,15 @@ public class Controller implements Initializable {
     }
 
     public void onServerModeCheckBoxChanged(ActionEvent event) {
-        if (server_mode_CBX.isSelected())
-            ip_address_TF.setPromptText("[port] here");
-        else
-            ip_address_TF.setPromptText("[IP address]:[port] here");
+        try {
+            Main.ipChecker.join();
+            if (server_mode_CBX.isSelected())
+                ip_address_TF.setPromptText("[port] here, your global IP address is '" + IpChecker.globalIpAddr + "'");
+            else
+                ip_address_TF.setPromptText("[IP address]:[port] here");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void UpdateModFiles() {

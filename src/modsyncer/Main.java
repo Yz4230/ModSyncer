@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import modsyncer.Sides.Client;
+import modsyncer.Sides.Server;
+import modsyncer.threads.IpChecker;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +20,10 @@ public class Main extends Application {
     public static final String CONFIG_FILEPATH = "./modsyncer_config.properties";
     public static String MODS_FILEPATH;
     public static String SERVER_IP;
+    public static IpChecker ipChecker = new IpChecker();
+
+    public static Server serverInst;
+    public static Client clientInst;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -56,6 +63,7 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ipChecker.start();
         launch(args);
     }
 }
