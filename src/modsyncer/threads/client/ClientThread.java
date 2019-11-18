@@ -16,11 +16,14 @@ public class ClientThread extends Thread {
 
     @Override
     public void run() {
+        System.out.println("Client was Launched");
         try {
             this.socket = new Socket(this.serverIp, this.port);
             DataOutputStream outputStream = new DataOutputStream(this.socket.getOutputStream());
-            outputStream.writeInt(114);
-            outputStream.writeUTF("hash");
+            if (this.serverIp.equals("127.0.0.1"))
+                outputStream.writeUTF("hello_server");
+            outputStream.writeUTF("japan");
+            outputStream.close();
             this.socket.close();
         } catch (IOException e) {
             e.printStackTrace();

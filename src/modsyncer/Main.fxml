@@ -8,7 +8,8 @@
   <children>
     <SplitPane dividerPositions="0.30647291941875826" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="837.0000999999975" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
       <items>
-        <ListView fx:id="modList_LV" onKeyPressed="#onSelect" onMouseClicked="#onSelect" prefHeight="506.0" prefWidth="420.9998779296875" />
+        <ListView fx:id="modList_LV" onKeyPressed="#onListItemSelect" onMouseClicked="#onListItemSelect"
+                  prefHeight="506.0" prefWidth="420.9998779296875"/>
         <VBox prefHeight="493.0" prefWidth="359.0">
           <children>
             <GridPane>
@@ -28,7 +29,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <Separator onKeyTyped="#onSelect" onMouseClicked="#onSelect" prefWidth="200.0" />
+            <Separator onKeyTyped="#onListItemSelect" onMouseClicked="#onListItemSelect" prefWidth="200.0"/>
             <GridPane style="-fx-background-color: white;">
               <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Num of Files" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -71,7 +72,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <Separator onKeyTyped="#onSelect" onMouseClicked="#onSelect" prefWidth="200.0" />
+            <Separator onKeyTyped="#onListItemSelect" onMouseClicked="#onListItemSelect" prefWidth="200.0"/>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
               <children>
                 <ProgressBar fx:id="progress_PI" prefHeight="16.0" prefWidth="200.0" progress="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />

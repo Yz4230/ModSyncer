@@ -1,9 +1,7 @@
 package modsyncer.threads.server;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler extends Thread {
@@ -17,10 +15,9 @@ public class ClientHandler extends Thread {
     public void run() {
         try {
             DataInputStream inputStream = new DataInputStream(this.socket.getInputStream());
-            int numMods = inputStream.readInt();
-            String hash = inputStream.readUTF();
-            System.out.println(numMods);
-            System.out.println(hash);
+            System.out.println(inputStream.readUTF());
+
+            inputStream.close();
             this.socket.close();
         } catch (IOException e) {
             e.printStackTrace();

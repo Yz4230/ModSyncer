@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerThread extends Thread {
+    private final String CMD_HALT_SERVER = "halt_server";
     private int port;
 
     public ServerThread(int portNumber) {
@@ -15,21 +16,22 @@ public class ServerThread extends Thread {
 
     @Override
     public void run() {
+        System.out.println("Server was Launched");
         try {
             ServerSocket serverSocket = new ServerSocket(this.port);
-            System.out.println("Server was Launched");
             while (true) {
                 Socket socket = serverSocket.accept();
                 if (socket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
                     DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-                    if (inputStream.readUTF().equals("terminate-server")) {
+                    if (inputStream.readUTF().equals(this.CMD_HALT_SERVER)) {
                         socket.close();
                         serverSocket.close();
                         System.out.println("Server was Closed");
                         break;
+                    } else {
+                        System.out.println("DEBUG:Local Host was Connected");
                     }
                 }
-                System.out.println("Client is Coming");
                 ClientHandler handler = new ClientHandler(socket);
                 handler.start();
             }
@@ -45,7 +47,7 @@ public class ServerThread extends Thread {
         try {
             Socket socket = new Socket("localhost", this.port);
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-            outputStream.writeUTF("terminate-server");
+            outputStream.writeUTF(this.CMD_HALT_SERVER);
             outputStream.close();
             socket.close();
         } catch (IOException e) {

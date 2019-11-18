@@ -10,12 +10,8 @@ import modsyncer.Sides.Client;
 import modsyncer.Sides.Server;
 import modsyncer.threads.IpChecker;
 
-import java.io.IOException;
-
 public class Main extends Application {
     public static final String CONFIG_FILEPATH = "./modsyncer_config.properties";
-    public static String MODS_FILEPATH;
-    public static String SERVER_IP;
     public static IpChecker ipChecker = new IpChecker();
 
     public static Server serverInst = new Server();

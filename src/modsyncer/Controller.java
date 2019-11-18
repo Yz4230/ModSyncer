@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import modsyncer.Sides.Client;
 import modsyncer.threads.IpChecker;
 
 import java.io.File;
@@ -37,22 +36,24 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.UpdateModFiles();
-        this.modsPass_TF.setText(Main.MODS_FILEPATH);
+        this.updateModFiles();
+        this.modsPass_TF.setText(Settings.MODS_FILEPATH);
+        this.server_mode_CBX.setSelected(Settings.SERVER_MODE);
+        this.updateIpAddressTF();
     }
 
     @FXML
     protected void onUpdateButtonClick(ActionEvent event) {
-        Settings.properties.setProperty(Settings.TAG_MODS_PATH, this.modsPass_TF.getText());
+        Settings.MODS_FILEPATH = this.modsPass_TF.getText();
         this.modList_LV.getItems().clear();
-        this.UpdateModFiles();
+        this.updateModFiles();
     }
 
     @FXML
     public void onSyncButtonClick(ActionEvent event) {
         if (this.ip_address_TF.getText().isEmpty()) return;
-        Settings.properties.setProperty(Settings.TAG_SERVER_IP, this.ip_address_TF.getText());
-        if (this.server_mode_CBX.isSelected()) {
+        if (Settings.SERVER_MODE) {
+            Settings.IP_SERVER = this.ip_address_TF.getText();
             if (Main.serverInst.isRunning()) {
                 Main.serverInst.terminate();
                 this.sync_BTN.setText("Sync");
@@ -64,16 +65,16 @@ public class Controller implements Initializable {
                 this.server_mode_CBX.setDisable(true);
             }
         } else {
-            Main.clientInst = new Client();
+            Settings.IP_CLIENT = this.ip_address_TF.getText();
             Main.clientInst.parseAddress(this.ip_address_TF.getText());
             Main.clientInst.sync();
         }
     }
 
     @FXML
-    public void onSelect(InputEvent inputEvent) {
+    public void onListItemSelect(InputEvent inputEvent) {
         if (inputEvent instanceof KeyEvent && !((KeyEvent) inputEvent).getCode().isArrowKey()) return;
-        String fullPath = Main.MODS_FILEPATH + "\\" + this.modList_LV.getSelectionModel().getSelectedItem();
+        String fullPath = Settings.MODS_FILEPATH + "\\" + this.modList_LV.getSelectionModel().getSelectedItem();
         BasicFileAttributes attributes;
         try {
             attributes = Files.readAttributes(Paths.get(fullPath), BasicFileAttributes.class);
@@ -87,27 +88,35 @@ public class Controller implements Initializable {
     }
 
     public void onServerModeCheckBoxChanged(ActionEvent event) {
-        try {
-            Main.ipChecker.join();
-            if (this.server_mode_CBX.isSelected()) {
-                String message = "[port] here";
-                if (!IpChecker.globalIpAddr.isEmpty())
-                    message += ", your global IP address is '" + IpChecker.globalIpAddr + "'";
-                this.ip_address_TF.setPromptText(message);
-            }
-            else
-                this.ip_address_TF.setPromptText("[IP address]:[port] here");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (this.server_mode_CBX.isSelected()) {
+            Settings.IP_CLIENT = this.ip_address_TF.getText();
+        } else {
+            Settings.IP_SERVER = this.ip_address_TF.getText();
         }
+        this.updateIpAddressTF();
     }
 
-    private void UpdateModFiles() {
-        File dir = new File(Main.MODS_FILEPATH);
+    private void updateModFiles() {
+        File dir = new File(Settings.MODS_FILEPATH);
         File[] files = dir.listFiles();
         if (files != null) {
             Arrays.stream(files).filter(File::isFile).forEach(f -> this.modList_LV.getItems().add(f.getName()));
             this.num_of_files_TX.setText(String.valueOf(files.length));
+        }
+    }
+
+    private void updateIpAddressTF() {
+        if (this.server_mode_CBX.isSelected()) {
+            Settings.SERVER_MODE = true;
+            String message = "[port] here";
+            if (!IpChecker.globalIpAddr.isEmpty())
+                message += ", your global IP address is '" + IpChecker.globalIpAddr + "'";
+            this.ip_address_TF.setPromptText(message);
+            this.ip_address_TF.setText(Settings.IP_SERVER);
+        } else {
+            Settings.SERVER_MODE = false;
+            this.ip_address_TF.setPromptText("[IP address]:[port] here");
+            this.ip_address_TF.setText(Settings.IP_CLIENT);
         }
     }
 }
