@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,13 +17,13 @@ public class IpChecker extends Thread {
             InputStreamReader streamReader = new InputStreamReader(url.openStream());
             BufferedReader bufferedReader = new BufferedReader(streamReader);
             String line = bufferedReader.readLine();
-            Pattern pattern =  Pattern.compile("((?:\\d{1,3})\\.(?:\\d{1,3})\\.(?:\\d{1,3})\\.(?:\\d{1,3}))");
+            Pattern pattern =  Pattern.compile("((?:\\d{1,3}\\.?){4})");
             Matcher matcher = pattern.matcher(line);
             if (matcher.find()) {
                 globalIpAddr = matcher.group();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            globalIpAddr = "";
         }
     }
 }

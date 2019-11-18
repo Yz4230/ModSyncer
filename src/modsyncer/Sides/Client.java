@@ -22,7 +22,7 @@ public class Client implements Side {
 
     @Override
     public void parseAddress(String parseTarget) {
-        Pattern pattern = Pattern.compile("((?:(?:\\d{1,3})\\.?){4}):(\\d{1,5})");
+        Pattern pattern = Pattern.compile("((?:\\d{1,3}\\.?){4}):(\\d{1,5})");
         Matcher matcher = pattern.matcher(parseTarget);
         if (matcher.find()) {
             this.serverIp = matcher.group(1);

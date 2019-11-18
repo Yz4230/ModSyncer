@@ -8,8 +8,6 @@ import java.net.Socket;
 
 public class ClientHandler extends Thread {
     private Socket socket;
-    private BufferedReader reader;
-    private PrintWriter writer;
 
     public ClientHandler(Socket s) {
         this.socket = s;

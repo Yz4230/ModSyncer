@@ -43,7 +43,7 @@ public class Controller implements Initializable {
 
     @FXML
     protected void onUpdateButtonClick(ActionEvent event) {
-        Main.MODS_FILEPATH = this.modsPass_TF.getText();
+        Settings.properties.setProperty(Settings.TAG_MODS_PATH, this.modsPass_TF.getText());
         this.modList_LV.getItems().clear();
         this.UpdateModFiles();
     }
@@ -51,6 +51,7 @@ public class Controller implements Initializable {
     @FXML
     public void onSyncButtonClick(ActionEvent event) {
         if (this.ip_address_TF.getText().isEmpty()) return;
+        Settings.properties.setProperty(Settings.TAG_SERVER_IP, this.ip_address_TF.getText());
         if (this.server_mode_CBX.isSelected()) {
             if (Main.serverInst.isRunning()) {
                 Main.serverInst.terminate();
@@ -88,8 +89,12 @@ public class Controller implements Initializable {
     public void onServerModeCheckBoxChanged(ActionEvent event) {
         try {
             Main.ipChecker.join();
-            if (this.server_mode_CBX.isSelected())
-                this.ip_address_TF.setPromptText("[port] here, your global IP address is '" + IpChecker.globalIpAddr + "'");
+            if (this.server_mode_CBX.isSelected()) {
+                String message = "[port] here";
+                if (!IpChecker.globalIpAddr.isEmpty())
+                    message += ", your global IP address is '" + IpChecker.globalIpAddr + "'";
+                this.ip_address_TF.setPromptText(message);
+            }
             else
                 this.ip_address_TF.setPromptText("[IP address]:[port] here");
         } catch (InterruptedException e) {
