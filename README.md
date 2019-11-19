@@ -9,4 +9,5 @@ You can sync `mods` folder between Server and Client with some steps.
 
 ## Donation
 BTC : 1MiZEb6dQ9GJjCCyTmbnappKZjfXEPzPRG
+
 MONA : MJbf5AMY8FQjgb5WfTnz4aWuPgSEfT2BvV
