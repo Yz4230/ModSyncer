@@ -98,10 +98,10 @@ public class Controller implements Initializable {
 
     private void updateModFiles() {
         File dir = new File(Settings.MODS_FILEPATH);
-        File[] files = dir.listFiles();
-        if (files != null) {
-            Arrays.stream(files).filter(File::isFile).forEach(f -> this.modList_LV.getItems().add(f.getName()));
-            this.num_of_files_TX.setText(String.valueOf(files.length));
+        Main.modFiles = dir.listFiles();
+        if (Main.modFiles != null) {
+            Arrays.stream(Main.modFiles).filter(File::isFile).forEach(f -> this.modList_LV.getItems().add(f.getName()));
+            this.num_of_files_TX.setText(String.valueOf(Main.modFiles.length));
         }
     }
 

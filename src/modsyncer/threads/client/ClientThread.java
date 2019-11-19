@@ -1,8 +1,14 @@
 package modsyncer.threads.client;
 
+import modsyncer.Main;
+import org.json.JSONObject;
+
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class ClientThread extends Thread {
     private Socket socket;
@@ -22,7 +28,7 @@ public class ClientThread extends Thread {
             DataOutputStream outputStream = new DataOutputStream(this.socket.getOutputStream());
             if (this.serverIp.equals("127.0.0.1"))
                 outputStream.writeUTF("hello_server");
-            outputStream.writeUTF("japan");
+            outputStream.writeUTF(this.createJson().toString());
             outputStream.close();
             this.socket.close();
         } catch (IOException e) {
@@ -38,5 +44,11 @@ public class ClientThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private JSONObject createJson() {
+        JSONObject json = new JSONObject();
+        json.put("mods_list", Arrays.stream(Main.modFiles).map(File::getName).toArray());
+        return json;
     }
 }
