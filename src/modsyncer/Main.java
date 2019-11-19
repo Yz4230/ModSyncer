@@ -11,6 +11,9 @@ import modsyncer.Sides.Server;
 import modsyncer.threads.IpChecker;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main extends Application {
     public static final String CONFIG_FILEPATH = "./modsyncer_config.properties";
@@ -19,7 +22,22 @@ public class Main extends Application {
     public static Server serverInst = new Server();
     public static Client clientInst = new Client();
 
-    public static File[] modFiles;
+    public static List<File> modFiles = new ArrayList<>();
+    public static List<String> modNames = new ArrayList<>();
+
+    public static void main(String[] args) {
+        ipChecker.start();
+        Settings.load(CONFIG_FILEPATH);
+        if (args.length > 0) {
+            List<String> argList = Arrays.asList(args);
+            if (argList.contains("-s")) Settings.SERVER_MODE = true;
+            else if (argList.contains("-c")) Settings.SERVER_MODE = false;
+            if (argList.contains("-p")) {
+                Settings.MODS_FILEPATH = argList.get(argList.indexOf("-p") + 1);
+            }
+        }
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -33,11 +51,5 @@ public class Main extends Application {
     @Override
     public void stop() {
         Settings.save();
-    }
-
-    public static void main(String[] args) {
-        Settings.load(CONFIG_FILEPATH);
-        ipChecker.start();
-        launch(args);
     }
 }

@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class Controller implements Initializable {
     public Text date_added_TX;
@@ -98,11 +99,15 @@ public class Controller implements Initializable {
 
     private void updateModFiles() {
         File dir = new File(Settings.MODS_FILEPATH);
-        Main.modFiles = dir.listFiles();
-        if (Main.modFiles != null) {
-            Arrays.stream(Main.modFiles).filter(File::isFile).forEach(f -> this.modList_LV.getItems().add(f.getName()));
-            this.num_of_files_TX.setText(String.valueOf(Main.modFiles.length));
+        File[] files = dir.listFiles();
+        Main.modFiles.clear();
+        Main.modNames.clear();
+        if (files != null) {
+            Main.modFiles.addAll(Arrays.stream(files).filter(File::isFile).collect(Collectors.toList()));
+            Main.modNames.addAll(Main.modFiles.stream().map(File::getName).collect(Collectors.toList()));
         }
+        this.modList_LV.getItems().addAll(Main.modNames);
+        this.num_of_files_TX.setText(String.valueOf(Main.modFiles.size()));
     }
 
     private void updateIpAddressTF() {

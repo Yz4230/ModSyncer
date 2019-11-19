@@ -23,15 +23,14 @@ public class Settings {
         Settings.filePath = filePath;
         try {
             File file = new File(Settings.filePath);
-            if (!file.exists())
-                file.createNewFile();
+            file.createNewFile();
             properties.load(new FileReader(file));
             MODS_FILEPATH = properties.getProperty(TAG_MODS_FILEPATH, "");
             IP_CLIENT = properties.getProperty(TAG_IP_CLIENT, "");
             IP_SERVER = properties.getProperty(TAG_IP_SERVER, "");
             SERVER_MODE = Boolean.parseBoolean(properties.getProperty(TAG_SERVER_MODE, "false"));
 
-            System.out.println("Config file " + Settings.filePath + " was loaded.");
+            System.out.println("Config file '" + Settings.filePath + "' was loaded.");
         } catch (IOException e) {
             e.printStackTrace();
         }

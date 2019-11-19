@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/ModSyncer_jar</output-path>
     <root id="archive" name="ModSyncer.jar">
       <element id="module-output" name="ModSyncer" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/modsyncer/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>

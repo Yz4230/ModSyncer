@@ -16,7 +16,7 @@ public class ServerThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Server was Launched");
+        System.out.println("Server was Launched.");
         try {
             ServerSocket serverSocket = new ServerSocket(this.port);
             while (true) {
@@ -26,10 +26,10 @@ public class ServerThread extends Thread {
                     if (inputStream.readUTF().equals(CMD_HALT_SERVER)) {
                         socket.close();
                         serverSocket.close();
-                        System.out.println("Server was Closed");
+                        System.out.println("Server was Closed.");
                         break;
                     } else {
-                        System.out.println("DEBUG:Local Host was Connected");
+                        System.out.println("DEBUG : Local Host has connected.");
                     }
                 }
                 ClientHandler handler = new ClientHandler(socket);
