@@ -3,10 +3,7 @@ package modsyncer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
@@ -26,6 +23,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class Controller implements Initializable {
+    public static Controller INSTANCE;
     public Text date_added_TX;
     public Text full_path_TX;
     public Text num_of_files_TX;
@@ -34,6 +32,12 @@ public class Controller implements Initializable {
     public TextField modsPass_TF;
     public TextField ip_address_TF;
     public Button sync_BTN;
+    public ProgressBar progress_PI;
+
+
+    public Controller() {
+        INSTANCE = this;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -41,6 +45,7 @@ public class Controller implements Initializable {
         this.modsPass_TF.setText(Settings.MODS_FILEPATH);
         this.server_mode_CBX.setSelected(Settings.SERVER_MODE);
         this.updateIpAddressTF();
+        this.progress_PI.setDisable(true)   ;
     }
 
     @FXML
@@ -66,6 +71,7 @@ public class Controller implements Initializable {
                 this.server_mode_CBX.setDisable(true);
             }
         } else {
+            this.progress_PI.setDisable(false);
             Settings.IP_CLIENT = this.ip_address_TF.getText();
             Main.clientInst.parseAddress(this.ip_address_TF.getText());
             Main.clientInst.sync();
@@ -97,7 +103,7 @@ public class Controller implements Initializable {
         this.updateIpAddressTF();
     }
 
-    private void updateModFiles() {
+    public void updateModFiles() {
         File dir = new File(Settings.MODS_FILEPATH);
         File[] files = dir.listFiles();
         Main.modFiles.clear();
@@ -110,7 +116,7 @@ public class Controller implements Initializable {
         this.num_of_files_TX.setText(String.valueOf(Main.modFiles.size()));
     }
 
-    private void updateIpAddressTF() {
+    public void updateIpAddressTF() {
         if (this.server_mode_CBX.isSelected()) {
             Settings.SERVER_MODE = true;
             String message = "[port] here";

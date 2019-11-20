@@ -7,17 +7,16 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Settings {
-    private static String filePath;
-    public static Properties properties = new Properties();
     public static final String TAG_MODS_FILEPATH = "mods_filepath";
     public static final String TAG_IP_CLIENT = "ip_client";
     public static final String TAG_IP_SERVER = "ip_server";
     public static final String TAG_SERVER_MODE = "server_mode";
-
+    public static Properties properties = new Properties();
     public static String MODS_FILEPATH;
     public static String IP_CLIENT;
     public static String IP_SERVER;
     public static boolean SERVER_MODE;
+    private static String filePath;
 
     public static void load(String filePath) {
         Settings.filePath = filePath;

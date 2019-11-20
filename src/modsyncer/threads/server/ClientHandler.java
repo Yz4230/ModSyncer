@@ -1,5 +1,6 @@
 package modsyncer.threads.server;
 
+import modsyncer.Controller;
 import modsyncer.Main;
 import org.json.JSONObject;
 
@@ -33,7 +34,8 @@ public class ClientHandler extends Thread {
             sendModList.removeIf(file -> clientModList.contains(file.getName()));
 
             outputStream.writeInt(sendModList.size());
-            sendModList.forEach(file -> {
+            for (int i = 0; i < sendModList.size(); i++) {
+                File file = sendModList.get(i);
                 byte[] data = new byte[4096];
                 int size;
                 try {
@@ -45,7 +47,8 @@ public class ClientHandler extends Thread {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            });
+                Controller.INSTANCE.progress_PI.setProgress((double) i / sendModList.size());
+            }
 
             inputStream.close();
             outputStream.close();
@@ -53,5 +56,12 @@ public class ClientHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            sleep(10_000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Controller.INSTANCE.progress_PI.setProgress(0);
+        Controller.INSTANCE.progress_PI.setDisable(true);
     }
 }

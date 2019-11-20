@@ -1,5 +1,6 @@
 package modsyncer.threads.client;
 
+import modsyncer.Controller;
 import modsyncer.Main;
 import modsyncer.Settings;
 import org.json.JSONObject;
@@ -47,6 +48,7 @@ public class ClientThread extends Thread {
                         fileOutputStream.write(data, 0, size);
                     }
                     fileOutputStream.close();
+                    Controller.INSTANCE.updateModFiles();
                 }
                 System.out.println("Mod(s) has(have) been updated successfully!");
             } else System.out.println("Mod(s) has(have) been already updated.");
