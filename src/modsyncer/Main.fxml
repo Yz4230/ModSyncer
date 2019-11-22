@@ -1,99 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane minHeight="347.0" minWidth="293.999977929685" prefHeight="472.0" prefWidth="759.0"
-            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
-            fx:controller="modsyncer.Controller">
-  <SplitPane dividerPositions="0.30647291941875826" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-             minWidth="-Infinity" prefHeight="464.0" prefWidth="837.0000999999975" AnchorPane.bottomAnchor="1.0"
-             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
-    <ListView fx:id="modList_LV" onKeyPressed="#onListItemSelect" onMouseClicked="#onListItemSelect"
-              prefHeight="506.0" prefWidth="420.9998779296875"/>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="347.0" minWidth="293.999977929685" prefHeight="472.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="modsyncer.Controller">
+  <SplitPane dividerPositions="0.30647291941875826" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="837.0000999999975" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+    <ListView fx:id="modList_LV" onKeyPressed="#onListItemSelect" onMouseClicked="#onListItemSelect" prefHeight="506.0" prefWidth="420.9998779296875" />
     <VBox prefHeight="493.0" prefWidth="359.0">
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0"
-                             prefWidth="100.0"/>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0"
-                             prefWidth="100.0"/>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="80.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <TextField fx:id="modsPass_TF" promptText="&quot;mods&quot; folder pass here" GridPane.columnIndex="0"
-                   GridPane.rowIndex="0">
+        <TextField fx:id="modsPass_TF" promptText="&quot;mods&quot; folder pass here" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <GridPane.margin>
-            <Insets left="5.0" right="5.0"/>
+            <Insets left="5.0" right="5.0" />
           </GridPane.margin>
         </TextField>
-        <Button fx:id="update_BTN" alignment="CENTER" mnemonicParsing="false" onAction="#onUpdateButtonClick"
-                text="Update" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Button fx:id="update_BTN" alignment="CENTER" mnemonicParsing="false" onAction="#onUpdateButtonClick" text="Update" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" />
       </GridPane>
-      <Separator onKeyTyped="#onListItemSelect" onMouseClicked="#onListItemSelect" prefWidth="200.0"/>
+      <Separator onKeyTyped="#onListItemSelect" onMouseClicked="#onListItemSelect" prefWidth="200.0" />
       <GridPane style="-fx-background-color: white;">
         <children>
-          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Num of Files" GridPane.columnIndex="0"
-                GridPane.rowIndex="0"/>
-          <Text id="date_added_TF" fx:id="num_of_files_TX" strokeType="OUTSIDE" strokeWidth="0.0"
-                GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Added" GridPane.columnIndex="0"
-                GridPane.rowIndex="1"/>
-          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Path" GridPane.columnIndex="0"
-                GridPane.rowIndex="2"/>
-          <Text fx:id="date_added_TX" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1"
-                GridPane.rowIndex="1"/>
-          <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;"
-                      GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
-                      GridPane.valignment="CENTER">
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Num of Files" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+          <Text id="date_added_TF" fx:id="num_of_files_TX" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Added" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Full Path" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+          <Text fx:id="date_added_TX" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+          <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <content>
-              <Text fx:id="full_path_TX" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER"/>
+              <Text fx:id="full_path_TX" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
             </content>
           </ScrollPane>
         </children>
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0"
-                             prefWidth="100.0"/>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="129.0"
-                             prefWidth="100.0"/>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="129.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <VBox.margin>
-          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </VBox.margin>
       </GridPane>
-      <Separator prefWidth="568.0"/>
+      <Separator prefWidth="568.0" />
       <GridPane>
         <children>
-          <CheckBox fx:id="server_mode_CBX" mnemonicParsing="false" onAction="#onServerModeCheckBoxChanged"
-                    text="Server Mode" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-          <Button fx:id="sync_BTN" alignment="CENTER" mnemonicParsing="false" onAction="#onSyncButtonClick"
-                  text="Sync" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-          <TextField fx:id="ip_address_TF" promptText="[IP address]:[port] here" GridPane.columnIndex="1"
-                     GridPane.rowIndex="0"/>
+          <CheckBox fx:id="server_mode_CBX" mnemonicParsing="false" onAction="#onServerModeCheckBoxChanged" text="Server Mode" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+          <Button fx:id="sync_BTN" alignment="CENTER" mnemonicParsing="false" onAction="#onSyncButtonClick" text="Sync" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+          <TextField fx:id="ip_address_TF" promptText="[IP address]:[port] here" GridPane.columnIndex="1" GridPane.rowIndex="0" />
         </children>
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0"
-                             prefWidth="100.0"/>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="55.0" prefWidth="100.0"/>
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0"
-                             prefWidth="100.0"/>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="55.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <Separator onKeyTyped="#onListItemSelect" onMouseClicked="#onListItemSelect" prefWidth="200.0"/>
+      <Separator onKeyTyped="#onListItemSelect" onMouseClicked="#onListItemSelect" prefWidth="200.0" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <children>
-          <ProgressBar fx:id="progress_PI" prefHeight="16.0" prefWidth="200.0" progress="0.0"
-                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+          <ProgressBar fx:id="progress_PI" progress="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
         </children>
       </AnchorPane>
     </VBox>

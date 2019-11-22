@@ -49,9 +49,13 @@ public class ClientThread extends Thread {
                     }
                     fileOutputStream.close();
                     Controller.INSTANCE.updateModFiles();
+                    Controller.INSTANCE.progress_PI.setProgress((double) i / numModsDownload);
                 }
                 System.out.println("Mod(s) has(have) been updated successfully!");
-            } else System.out.println("Mod(s) has(have) been already updated.");
+            } else {
+                System.out.println("Mod(s) has(have) been already updated.");
+                Controller.INSTANCE.progress_PI.setProgress(1.D);
+            }
 
             inputStream.close();
             outputStream.close();
